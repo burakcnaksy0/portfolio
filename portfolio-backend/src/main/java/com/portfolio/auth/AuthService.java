@@ -55,14 +55,16 @@ public class AuthService {
         String refreshToken = extractRefreshTokenFromCookie(request);
 
         if (refreshToken == null) {
-            throw new RuntimeException("Refresh token not found");
+            log.warn("Refresh token cookie not found");
+            return null; // Or throw a specialized Auth exception
         }
 
         String email = jwtService.extractUsername(refreshToken);
         User user = (User) userDetailsService.loadUserByUsername(email);
 
         if (!jwtService.isTokenValid(refreshToken, user)) {
-            throw new RuntimeException("Invalid refresh token");
+            log.warn("Invalid refresh token for user: {}", email);
+            return null;
         }
 
         String newAccessToken  = jwtService.generateAccessToken(user);

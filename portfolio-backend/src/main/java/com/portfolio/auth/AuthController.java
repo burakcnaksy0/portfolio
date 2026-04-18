@@ -35,6 +35,9 @@ public class AuthController {
             HttpServletRequest request,
             HttpServletResponse response) {
         LoginResponse loginResponse = authService.refresh(request, response);
+        if (loginResponse == null) {
+            return ResponseEntity.status(401).body(ApiResponse.error("Session expired or invalid"));
+        }
         return ResponseEntity.ok(ApiResponse.success("Token refreshed", loginResponse));
     }
 
