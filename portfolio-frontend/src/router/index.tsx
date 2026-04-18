@@ -11,6 +11,7 @@ const ProjectDetailPage = lazy(() => import('@/pages/public/ProjectDetailPage').
 const BlogPage          = lazy(() => import('@/pages/public/BlogPage').then(m => ({ default: m.BlogPage })));
 const BlogDetailPage    = lazy(() => import('@/pages/public/BlogDetailPage').then(m => ({ default: m.BlogDetailPage })));
 const ExperiencePage    = lazy(() => import('@/pages/public/ExperiencePage').then(m => ({ default: m.ExperiencePage })));
+const EducationPage     = lazy(() => import('@/pages/public/EducationPage').then(m => ({ default: m.EducationPage })));
 const CertificatesPage  = lazy(() => import('@/pages/public/CertificatesPage').then(m => ({ default: m.CertificatesPage })));
 const ContactPage       = lazy(() => import('@/pages/public/ContactPage').then(m => ({ default: m.ContactPage })));
 
@@ -43,6 +44,7 @@ const router = createBrowserRouter([
       { path: '/blog',            element: <BlogPage /> },
       { path: '/blog/:slug',      element: <BlogDetailPage /> },
       { path: '/experience',      element: <ExperiencePage /> },
+      { path: '/education',       element: <EducationPage /> },
       { path: '/certificates',    element: <CertificatesPage /> },
       { path: '/contact',         element: <ContactPage /> },
     ],
