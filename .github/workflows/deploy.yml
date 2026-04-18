@@ -1,0 +1,42 @@
+name: Deploy Portfolio
+
+on:
+  push:
+    branches:
+      - main  # Veya senin ana dal ismin hangisiyse (master/main)
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Copy files to Server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          source: "."
+          target: "/root/portfolio-temp"
+          rm: true
+
+      - name: Execute Server Commands
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            # Geçici klasörden ana klasöre dosyaları taşı
+            cp -r /root/portfolio-temp/* /root/
+            rm -rf /root/portfolio-temp
+            
+            # Uygulamayı yeniden başlat ve derle
+            cd /root
+            docker-compose down
+            docker-compose up -d --build
+            
+            # Temizlik (Kullanılmayan eski docker imajlarını siler, sunucu dolmasın)
+            docker image prune -f

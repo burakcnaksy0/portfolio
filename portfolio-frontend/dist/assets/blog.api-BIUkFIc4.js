@@ -1,0 +1,1 @@
+import{h as l}from"./index-DHwsLGN-.js";const a={getPublished:e=>l.get("/api/blog",{params:e}),getBySlug:e=>l.get(`/api/blog/${e}`),getAllAdmin:e=>l.get("/api/blog/admin/all",{params:e}),create:e=>l.post("/api/blog",e),update:(e,t)=>l.put(`/api/blog/${e}`,t),delete:e=>l.delete(`/api/blog/${e}`)};export{a as b};

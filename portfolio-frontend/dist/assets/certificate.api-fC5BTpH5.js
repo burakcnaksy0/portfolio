@@ -1,0 +1,1 @@
+import{h as t}from"./index-DHwsLGN-.js";const c={getAll:()=>t.get("/api/certificates"),create:e=>t.post("/api/certificates",e),update:(e,i)=>t.put(`/api/certificates/${e}`,i),delete:e=>t.delete(`/api/certificates/${e}`)};export{c};

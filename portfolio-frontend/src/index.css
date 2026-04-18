@@ -1,0 +1,292 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── CSS Variables (Light Theme) ──────────────────────────────────────────── */
+:root {
+  --bg-primary:     #ffffff;
+  --bg-secondary:   #f8faff;
+  --bg-card:        #ffffff;
+  --bg-card-hover:  #f0f4ff;
+  --border-color:   #e2e8f0;
+  --text-primary:   #0f172a;
+  --text-secondary: #475569;
+  --text-muted:     #94a3b8;
+  --accent:         #5a6aff;
+  --accent-glow:    #5a6aff30;
+  --glass-bg:       rgba(255,255,255,0.8);
+  --glass-border:   rgba(255,255,255,0.5);
+}
+
+/* ── CSS Variables (Dark Theme) ───────────────────────────────────────────── */
+[data-theme="dark"],
+.dark {
+  --bg-primary:     #020617; /* slate-950 */
+  --bg-secondary:   #090E17; /* slightly darker than slate-900 */
+  --bg-card:        #0f172a; /* slate-900 */
+  --bg-card-hover:  #1e293b; /* slate-800 */
+  --border-color:   #1e293b;
+  --text-primary:   #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted:     #64748b;
+  --accent:         #5a6aff;
+  --accent-glow:    #5a6aff40;
+  --glass-bg:       rgba(13,13,31,0.8);
+  --glass-border:   rgba(90,106,255,0.15);
+}
+
+/* ── Base Styles ─────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* ── Scrollbar ───────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-secondary); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #4147f5; }
+
+/* ── Selection ───────────────────────────────────────────────────────────── */
+::selection { background: var(--accent-glow); color: var(--accent); }
+
+/* ── Component Classes ───────────────────────────────────────────────────── */
+@layer components {
+
+  /* Glass card */
+  .glass-card {
+    @apply rounded-2xl border backdrop-blur-sm;
+    background: var(--glass-bg);
+    border-color: var(--glass-border);
+  }
+
+  /* Standard card */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    @apply rounded-2xl transition-all duration-300;
+  }
+
+  .card:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--accent);
+    box-shadow: 0 0 20px var(--accent-glow);
+    transform: translateY(-2px);
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary-400 via-primary-500 to-accent-400 bg-clip-text text-transparent;
+  }
+
+  /* Gradient border */
+  .gradient-border {
+    position: relative;
+    border-radius: 1rem;
+    padding: 1px;
+    background: linear-gradient(135deg, #5a6aff, #10b981);
+  }
+
+  .gradient-border > * {
+    border-radius: calc(1rem - 1px);
+    background: var(--bg-card);
+  }
+
+  /* Primary button */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold
+           text-white transition-all duration-200 cursor-pointer
+           disabled:opacity-50 disabled:cursor-not-allowed;
+    background: linear-gradient(135deg, #5a6aff, #4147f5);
+    box-shadow: 0 4px 15px var(--accent-glow);
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px var(--accent-glow);
+  }
+
+  .btn-primary:active { transform: translateY(0); }
+
+  /* Secondary button */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold
+           transition-all duration-200 cursor-pointer border;
+    color: var(--text-primary);
+    border-color: var(--border-color);
+    background: var(--bg-card);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-glow);
+  }
+
+  /* Input field */
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 transition-all duration-200;
+    background: var(--bg-card);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+  }
+
+  .input-field:focus {
+    border-color: var(--accent);
+    --tw-ring-color: var(--accent-glow);
+  }
+
+  .input-field::placeholder { color: var(--text-muted); }
+
+  /* Badge */
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium;
+    background: var(--accent-glow);
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-opacity: 0.3;
+  }
+
+  /* Section title */
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold mb-4;
+    color: var(--text-primary);
+  }
+
+  .section-subtitle {
+    @apply text-lg;
+    color: var(--text-secondary);
+  }
+
+  /* Container */
+  .container-custom {
+    @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Skeleton loader */
+  .skeleton {
+    @apply animate-pulse rounded-lg;
+    background: var(--border-color);
+  }
+
+  /* Noise overlay for premium feel */
+  .noise-overlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+/* ── Prose (Markdown) Styles ─────────────────────────────────────────────── */
+.prose-custom {
+  color: var(--text-primary);
+  line-height: 1.8;
+  max-width: 72ch;
+}
+
+.prose-custom h1, .prose-custom h2, .prose-custom h3 {
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 1.5em 0 0.5em;
+}
+
+.prose-custom h1 { font-size: 2rem; }
+.prose-custom h2 { font-size: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.3em; }
+.prose-custom h3 { font-size: 1.25rem; }
+
+.prose-custom p { margin: 1em 0; color: var(--text-secondary); }
+
+.prose-custom a { color: var(--accent); text-decoration: underline; }
+
+.prose-custom code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875em;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  color: #10b981;
+}
+
+.prose-custom pre {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.25rem;
+  overflow-x: auto;
+  margin: 1.5em 0;
+}
+
+.prose-custom pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--text-primary);
+  font-size: 0.875rem;
+}
+
+.prose-custom blockquote {
+  border-left: 3px solid var(--accent);
+  padding-left: 1rem;
+  font-style: italic;
+  color: var(--text-secondary);
+  margin: 1.5em 0;
+}
+
+.prose-custom ul, .prose-custom ol {
+  padding-left: 1.5rem;
+  margin: 1em 0;
+  color: var(--text-secondary);
+}
+
+.prose-custom li { margin: 0.5em 0; }
+
+.prose-custom img {
+  max-width: 100%;
+  border-radius: 12px;
+  margin: 1.5em 0;
+}
+
+.prose-custom table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+}
+
+.prose-custom th, .prose-custom td {
+  border: 1px solid var(--border-color);
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.prose-custom th { background: var(--bg-card); font-weight: 600; }
+
+/* ── Animations ──────────────────────────────────────────────────────────── */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, var(--bg-card) 25%, var(--border-color) 50%, var(--bg-card) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* ── Neon glow effects ───────────────────────────────────────────────────── */
+.glow-primary { box-shadow: 0 0 20px var(--accent-glow); }
+.glow-accent  { box-shadow: 0 0 20px rgba(16,185,129,0.3); }

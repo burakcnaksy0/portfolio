@@ -1,0 +1,1 @@
+import{h as t}from"./index-DHwsLGN-.js";const r={getAll:e=>t.get("/api/projects",{params:e}),getFeatured:()=>t.get("/api/projects/featured"),getBySlug:e=>t.get(`/api/projects/${e}`),create:e=>t.post("/api/projects",e),update:(e,p)=>t.put(`/api/projects/${e}`,p),delete:e=>t.delete(`/api/projects/${e}`)};export{r as p};

@@ -1,0 +1,1 @@
+import{h as p}from"./index-DHwsLGN-.js";const a={getAll:()=>p.get("/api/experiences"),create:e=>p.post("/api/experiences",e),update:(e,i)=>p.put(`/api/experiences/${e}`,i),delete:e=>p.delete(`/api/experiences/${e}`)};export{a as e};

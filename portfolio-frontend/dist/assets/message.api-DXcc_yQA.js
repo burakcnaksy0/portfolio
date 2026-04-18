@@ -1,0 +1,1 @@
+import{h as s}from"./index-DHwsLGN-.js";const p={send:e=>s.post("/api/messages",e),getAll:e=>s.get("/api/messages",{params:e}),markRead:e=>s.put(`/api/messages/${e}/read`),delete:e=>s.delete(`/api/messages/${e}`)};export{p as m};
