@@ -1,7 +1,15 @@
 import { Link } from 'react-router-dom';
 import { Github, Linkedin, Twitter, Code2, Heart } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
+import { profileApi } from '@/api/profile.api';
 
 export function Footer() {
+  const { data: profileReq } = useQuery({
+    queryKey: ['profile'],
+    queryFn: profileApi.getProfile,
+  });
+  const profile = profileReq?.data?.data;
+
   const year = new Date().getFullYear();
   return (
     <footer className="border-t mt-20 py-12" style={{ borderColor: 'var(--border-color)', background: 'var(--bg-secondary)' }}>
@@ -42,27 +50,45 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Social */}
           <div>
             <h3 className="font-semibold mb-4" style={{ color: 'var(--text-primary)' }}>Connect</h3>
             <div className="flex gap-3">
-              {[
-                { icon: Github, href: '#', label: 'GitHub' },
-                { icon: Linkedin, href: '#', label: 'LinkedIn' },
-                { icon: Twitter, href: '#', label: 'Twitter' },
-              ].map(({ icon: Icon, href, label }) => (
+              {profile?.githubUrl && (
                 <a
-                  key={label}
-                  href={href}
+                  href={profile.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={label}
+                  aria-label="GitHub"
                   className="p-2.5 rounded-xl border transition-all duration-200 hover:border-primary-500 hover:text-primary-400"
                   style={{ color: 'var(--text-muted)', borderColor: 'var(--border-color)' }}
                 >
-                  <Icon size={17} />
+                  <Github size={17} />
                 </a>
-              ))}
+              )}
+              {profile?.linkedinUrl && (
+                <a
+                  href={profile.linkedinUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn"
+                  className="p-2.5 rounded-xl border transition-all duration-200 hover:border-primary-500 hover:text-primary-400"
+                  style={{ color: 'var(--text-muted)', borderColor: 'var(--border-color)' }}
+                >
+                  <Linkedin size={17} />
+                </a>
+              )}
+              {profile?.twitterUrl && (
+                <a
+                  href={profile.twitterUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Twitter"
+                  className="p-2.5 rounded-xl border transition-all duration-200 hover:border-primary-500 hover:text-primary-400"
+                  style={{ color: 'var(--text-muted)', borderColor: 'var(--border-color)' }}
+                >
+                  <Twitter size={17} />
+                </a>
+              )}
             </div>
           </div>
         </div>
