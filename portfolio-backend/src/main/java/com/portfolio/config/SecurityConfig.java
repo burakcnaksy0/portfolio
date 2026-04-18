@@ -46,6 +46,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/api/tags/**").permitAll()
                 // Public POST (contact form)
                 .requestMatchers(HttpMethod.POST, "/api/messages").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/education/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/profile").permitAll()
                 // Everything else requires ADMIN
                 .anyRequest().hasRole("ADMIN")
