@@ -3,7 +3,7 @@ name: Deploy Portfolio
 on:
   push:
     branches:
-      - main  # Veya senin ana dal ismin hangisiyse (master/main)
+      - master
 
 jobs:
   deploy:
