@@ -172,6 +172,7 @@ export interface DashboardStats {
   totalMessages: number;
   unreadMessages: number;
   totalTags: number;
+}
 
 // ─── Profile ───────────────────────────────────────────────────────────────────
 export interface Profile {
