@@ -3,7 +3,7 @@ ALTER TABLE profile ADD COLUMN phone_number VARCHAR(20);
 
 -- Create education table
 CREATE TABLE education (
-    id SERIAL PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     school_name VARCHAR(255) NOT NULL,
     department VARCHAR(255),
     degree VARCHAR(100),
