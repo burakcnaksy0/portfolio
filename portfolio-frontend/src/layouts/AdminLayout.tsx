@@ -15,6 +15,7 @@ const sidebarLinks = [
   { to: '/admin/projects',     label: 'Projects',     icon: FolderGit2 },
   { to: '/admin/blog',         label: 'Blog',         icon: BookOpen },
   { to: '/admin/experience',   label: 'Experience',   icon: Briefcase },
+  { to: '/admin/education',    label: 'Education',    icon: Award },
   { to: '/admin/certificates', label: 'Certificates', icon: Award },
   { to: '/admin/messages',     label: 'Messages',     icon: MessageSquare },
 ];

@@ -32,6 +32,7 @@ public class ProfileService {
                 .twitterUrl(p.getTwitterUrl())
                 .cvUrl(p.getCvUrl())
                 .publicEmail(p.getPublicEmail())
+                .phoneNumber(p.getPhoneNumber())
                 .build();
     }
 
@@ -47,6 +48,7 @@ public class ProfileService {
         p.setTwitterUrl(req.getTwitterUrl());
         p.setCvUrl(req.getCvUrl());
         p.setPublicEmail(req.getPublicEmail());
+        p.setPhoneNumber(req.getPhoneNumber());
         
         profileRepository.save(p);
         return getProfile();

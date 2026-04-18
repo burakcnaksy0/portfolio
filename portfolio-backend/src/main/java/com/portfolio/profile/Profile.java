@@ -26,4 +26,5 @@ public class Profile {
     private String twitterUrl;
     private String cvUrl;
     private String publicEmail;
+    private String phoneNumber;
 }

@@ -23,6 +23,8 @@ const ExperienceAdminPage   = lazy(() => import('@/pages/admin/ExperienceAdminPa
 const CertificatesAdminPage = lazy(() => import('@/pages/admin/CertificatesAdminPage').then(m => ({ default: m.CertificatesAdminPage })));
 const MessagesAdminPage     = lazy(() => import('@/pages/admin/MessagesAdminPage').then(m => ({ default: m.MessagesAdminPage })));
 const ProfileAdminPage      = lazy(() => import('@/pages/admin/ProfileAdminPage').then(m => ({ default: m.ProfileAdminPage })));
+const EducationAdminPage    = lazy(() => import('@/pages/admin/EducationAdminPage').then(m => ({ default: m.EducationAdminPage })));
+
 
 const PageLoader = () => (
   <div className="flex items-center justify-center min-h-screen">
@@ -60,6 +62,7 @@ const router = createBrowserRouter([
           { path: '/admin/projects',     element: <ProjectsAdminPage /> },
           { path: '/admin/blog',         element: <BlogAdminPage /> },
           { path: '/admin/experience',   element: <ExperienceAdminPage /> },
+          { path: '/admin/education',    element: <EducationAdminPage /> },
           { path: '/admin/certificates', element: <CertificatesAdminPage /> },
           { path: '/admin/messages',     element: <MessagesAdminPage /> },
           { path: '/admin/profile',      element: <ProfileAdminPage /> },

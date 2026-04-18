@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Github, Linkedin, Twitter, Code2, Heart, Mail, ExternalLink, Globe } from 'lucide-react';
+import { Github, Linkedin, Twitter, Code2, Heart, Mail, ExternalLink, Globe, Phone } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { profileApi } from '@/api/profile.api';
 
@@ -49,6 +49,13 @@ export function Footer() {
                   aria-label="Email"
                   className="w-12 h-12 flex items-center justify-center rounded-2xl border border-white/5 bg-white/5 hover:bg-primary-500/10 hover:border-primary-500/30 hover:text-primary-400 transition-all duration-300">
                   <Mail size={22} />
+                </a>
+               )}
+               {profile?.phoneNumber && (
+                <a href={`tel:${profile.phoneNumber}`} 
+                  aria-label="Phone"
+                  className="w-12 h-12 flex items-center justify-center rounded-2xl border border-white/5 bg-white/5 hover:bg-primary-500/10 hover:border-primary-500/30 hover:text-primary-400 transition-all duration-300">
+                  <Phone size={22} />
                 </a>
                )}
             </div>

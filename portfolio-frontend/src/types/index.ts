@@ -124,6 +124,30 @@ export interface ExperienceRequest {
   displayOrder?: number;
 }
 
+// ─── Education ────────────────────────────────────────────────────────────────
+export interface Education {
+  id: number;
+  schoolName: string;
+  department: string;
+  degree: string;
+  gpa?: number;
+  startDate: string;
+  endDate?: string;
+  current: boolean;
+  displayOrder: number;
+}
+
+export interface EducationRequest {
+  schoolName: string;
+  department: string;
+  degree: string;
+  gpa?: number;
+  startDate: string;
+  endDate?: string;
+  current: boolean;
+  displayOrder: number;
+}
+
 // ─── Certificates ─────────────────────────────────────────────────────────────
 export interface Certificate {
   id: number;
@@ -181,6 +205,7 @@ export interface Profile {
   title: string;
   about: string;
   email: string;
+  phoneNumber?: string;
   profileImageUrl?: string;
   cvUrl?: string;
   githubUrl?: string;

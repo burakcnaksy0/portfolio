@@ -10,6 +10,7 @@ export interface ProfileData {
   twitterUrl: string;
   cvUrl: string;
   publicEmail: string;
+  phoneNumber: string;
 }
 
 export const profileApi = {

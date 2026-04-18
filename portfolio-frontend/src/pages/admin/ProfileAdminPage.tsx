@@ -18,7 +18,8 @@ const schema = z.object({
   gitlabUrl: z.string().url().optional().or(z.literal('')),
   twitterUrl: z.string().url().optional().or(z.literal('')),
   cvUrl: z.string().url().optional().or(z.literal('')),
-  publicEmail: z.string().email().optional().or(z.literal(''))
+  publicEmail: z.string().email().optional().or(z.literal('')),
+  phoneNumber: z.string().optional()
 });
 
 export function ProfileAdminPage() {
@@ -91,6 +92,10 @@ export function ProfileAdminPage() {
             <div>
               <label className="block text-sm font-medium mb-1.5" style={{ color: 'var(--text-secondary)' }}>Public Email (Contact)</label>
               <input {...register('publicEmail')} className="input-field" placeholder="hello@example.com" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1.5" style={{ color: 'var(--text-secondary)' }}>Phone Number</label>
+              <input {...register('phoneNumber')} className="input-field" placeholder="+90 5XX XXX XX XX" />
             </div>
             <div>
               <label className="block text-sm font-medium mb-1.5" style={{ color: 'var(--text-secondary)' }}>CV / Resume URL (or upload PDF)</label>
