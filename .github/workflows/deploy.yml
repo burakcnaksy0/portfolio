@@ -12,31 +12,30 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Copy files to Server
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          password: ${{ secrets.SSH_PASSWORD }}
-          source: "."
-          target: "/root/portfolio-temp"
-          rm: true
-
-      - name: Execute Server Commands
+      - name: Deploy to Server via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
-            # Geçici klasörden ana klasöre dosyaları taşı
-            cp -r /root/portfolio-temp/* /root/
-            rm -rf /root/portfolio-temp
+            # Proje klasörüne git (yoksa oluştur ve git'i ayarla)
+            if [ ! -d "~/portfolio" ]; then
+              git clone https://github.com/burakcnaksy0/portfolio.git ~/portfolio
+            fi
             
-            # Uygulamayı yeniden başlat ve derle
-            cd /root
-            docker-compose down
+            cd ~/portfolio
+            
+            # Kodları güncelle (GitHub'dan en son hali çek)
+            git fetch --all
+            git reset --hard origin/master
+            
+            # Docker servislerini ayağa kaldır
+            # Not: Sunucuda Docker-Compose yüklü olduğunu biliyoruz (1-Click Docker Droplet)
+            docker-compose down || true
             docker-compose up -d --build
             
-            # Temizlik (Kullanılmayan eski docker imajlarını siler, sunucu dolmasın)
+            # Gereksiz imajları temizle
             docker image prune -f
+
+
