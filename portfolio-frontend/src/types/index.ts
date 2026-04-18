@@ -172,4 +172,20 @@ export interface DashboardStats {
   totalMessages: number;
   unreadMessages: number;
   totalTags: number;
+
+// ─── Profile ───────────────────────────────────────────────────────────────────
+export interface Profile {
+  id: number;
+  fullName: string;
+  title: string;
+  about: string;
+  email: string;
+  profileImageUrl?: string;
+  cvUrl?: string;
+  githubUrl?: string;
+  linkedinUrl?: string;
+  twitterUrl?: string;
+  gitlabUrl?: string;
 }
+
+export interface ProfileRequest extends Partial<Profile> {}

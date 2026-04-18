@@ -23,6 +23,10 @@ export function HomePage() {
     queryFn: profileApi.getProfile,
   });
   const profile = profileReq?.data?.data;
+  
+  // Debug için (Sadece geliştirme aşamasında console'da veriyi görmek için)
+  console.log('Profile Data Loaded:', profile);
+
 
   const { data: featuredData } = useQuery({
     queryKey: ['projects', 'featured'],
