@@ -32,7 +32,7 @@ export function EducationAdminPage() {
     queryKey: ['education'], 
     queryFn: educationApi.getEducation 
   });
-  const educationList = data?.data?.data ?? [];
+  const educationList: Education[] = data?.data?.data ?? [];
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(schema),

@@ -1,5 +1,6 @@
 package com.portfolio.education;
 
+import com.portfolio.common.dto.ApiResponse;
 import com.portfolio.education.dto.EducationRequest;
 import com.portfolio.education.dto.EducationResponse;
 import lombok.RequiredArgsConstructor;
@@ -17,20 +18,20 @@ public class EducationController {
     private final EducationService educationService;
 
     @GetMapping
-    public ResponseEntity<List<EducationResponse>> getAllEducation() {
-        return ResponseEntity.ok(educationService.getAllEducation());
+    public ResponseEntity<ApiResponse<List<EducationResponse>>> getAllEducation() {
+        return ResponseEntity.ok(ApiResponse.success("Education records fetched", educationService.getAllEducation()));
     }
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<EducationResponse> createEducation(@RequestBody EducationRequest req) {
-        return ResponseEntity.ok(educationService.createEducation(req));
+    public ResponseEntity<ApiResponse<EducationResponse>> createEducation(@RequestBody EducationRequest req) {
+        return ResponseEntity.ok(ApiResponse.success("Education record created", educationService.createEducation(req)));
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<EducationResponse> updateEducation(@PathVariable Long id, @RequestBody EducationRequest req) {
-        return ResponseEntity.ok(educationService.updateEducation(id, req));
+    public ResponseEntity<ApiResponse<EducationResponse>> updateEducation(@PathVariable Long id, @RequestBody EducationRequest req) {
+        return ResponseEntity.ok(ApiResponse.success("Education record updated", educationService.updateEducation(id, req)));
     }
 
     @DeleteMapping("/{id}")
