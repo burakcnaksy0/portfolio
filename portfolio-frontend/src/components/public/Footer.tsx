@@ -27,7 +27,7 @@ export function Footer() {
               <span className="gradient-text">Burakcan AKSOY</span>
             </Link>
             <p className="text-base leading-relaxed mb-8 max-w-sm opacity-80" style={{ color: 'var(--text-secondary)' }}>
-              {profile?.about?.substring(0, 150)}...
+              {profile?.about?.substring(0, 100)}...
             </p>
             <div className="flex items-center gap-4">
                {profile?.githubUrl && (
@@ -116,11 +116,7 @@ export function Footer() {
             <span className="opacity-70">Software Engineer</span>
           </div>
           
-          <div className="flex items-center gap-1.5 opacity-80 bg-white/5 px-4 py-2 rounded-full">
-            <span>Crafted with</span>
-            <Heart size={14} className="text-red-500 fill-red-500 animate-pulse" />
-            <span>by Burakcan</span>
-          </div>
+
         </div>
       </div>
     </footer>

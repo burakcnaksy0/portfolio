@@ -175,57 +175,10 @@ export function HomePage() {
               ))}
             </motion.div>
 
-            <div className="text-center mt-10 md:hidden">
-              <Link to="/projects" className="btn-secondary">All Projects <ArrowRight size={16} /></Link>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* ── Education ─────────────────────────────────────────────────────── */}
-      {educationList.length > 0 && (
-        <section className="py-24" style={{ background: 'var(--bg-secondary)' }}>
-          <div className="container-custom">
-            <h2 className="section-title">Education</h2>
-            <p className="section-subtitle mb-12">Academic background & qualifications</p>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {educationList.map((edu) => (
-                <motion.div
-                  key={edu.id}
-                  variants={fadeUp}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  className="card p-8 relative overflow-hidden group hover:border-primary-500/30 transition-all duration-300"
-                >
-                  <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                    <GraduationCap size={80} />
-                  </div>
-                  
-                  <div className="flex items-start gap-4">
-                    <div className="p-3 rounded-2xl bg-primary-500/10 border border-primary-500/20 text-primary-400">
-                      <GraduationCap size={24} />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-xl font-bold mb-1" style={{ color: 'var(--text-primary)' }}>{edu.schoolName}</h3>
-                      <p className="text-primary-400 font-medium mb-3">{edu.degree} in {edu.department}</p>
-                      
-                      <div className="flex flex-wrap items-center gap-4 text-sm mb-4" style={{ color: 'var(--text-muted)' }}>
-                        <div className="flex items-center gap-1.5">
-                          <Calendar size={14} />
-                          {new Date(edu.startDate).getFullYear()} — {edu.current ? 'Present' : edu.endDate ? new Date(edu.endDate).getFullYear() : ''}
-                        </div>
-                        {edu.gpa && (
-                          <div className="px-2 py-0.5 rounded-md bg-white/5 border border-white/10">
-                            GPA: {edu.gpa.toFixed(2)}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
+            <div className="text-center mt-12 md:hidden">
+              <Link to="/projects" className="btn-secondary">
+                All Projects <ArrowRight size={16} />
+              </Link>
             </div>
           </div>
         </section>
