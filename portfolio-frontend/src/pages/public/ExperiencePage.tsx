@@ -2,59 +2,77 @@ import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { MapPin, Calendar, Briefcase } from 'lucide-react';
 import { experienceApi } from '@/api/experience.api';
+import { PageTransition } from '@/components/ui/PageTransition';
+import { SectionHeader } from '@/components/ui/SectionHeader';
 
 export function ExperiencePage() {
   const { data, isLoading } = useQuery({ queryKey: ['experiences'], queryFn: experienceApi.getAll });
   const experiences = data?.data?.data ?? [];
 
   return (
-    <div className="container-custom py-16">
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="section-title">Experience</h1>
-        <p className="section-subtitle mb-16">My professional journey</p>
+    <PageTransition>
+      <div className="container-custom py-16">
+        <SectionHeader
+          title="Experience"
+          subtitle="My professional journey"
+          icon={<><Briefcase size={14} /><span className="text-sm font-medium">Career</span></>}
+        />
 
         {isLoading ? (
           <div className="space-y-6">
-            {[...Array(3)].map((_, i) => <div key={i} className="skeleton h-36 rounded-2xl" />)}
+            {[...Array(3)].map((_, i) => <div key={i} className="skeleton h-40 rounded-2xl" />)}
           </div>
         ) : experiences.length === 0 ? (
-          <div className="text-center py-24">
-            <Briefcase size={48} className="mx-auto mb-4 text-primary-400 opacity-50" />
-            <p style={{ color: 'var(--text-muted)' }}>No experience entries yet.</p>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="text-center py-24"
+          >
+            <Briefcase size={48} className="mx-auto mb-4 opacity-30" style={{ color: 'var(--accent)' }} />
+            <p className="text-lg" style={{ color: 'var(--text-muted)' }}>No experience entries yet.</p>
+          </motion.div>
         ) : (
-          <div className="relative">
-            {/* Timeline line */}
-            <div className="absolute left-6 top-0 bottom-0 w-px" style={{ background: 'var(--border-color)' }} />
+          <div className="relative max-w-3xl mx-auto">
+            {/* Animated timeline line */}
+            <div className="timeline-line" />
 
-            <div className="space-y-8">
+            <div className="space-y-10">
               {experiences.map((exp, i) => (
                 <motion.div
                   key={exp.id}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                  viewport={{ once: true }}
+                  initial={{ opacity: 0, x: -30, filter: 'blur(4px)' }}
+                  whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+                  transition={{ delay: i * 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  viewport={{ once: true, margin: '-50px' }}
                   className="relative pl-16"
                 >
-                  {/* Timeline dot */}
-                  <div className="absolute left-4 top-4 w-4 h-4 rounded-full border-2 border-primary-500 bg-primary-500 bg-opacity-20 z-10"
-                    style={{ transform: 'translateX(-50%)' }} />
+                  {/* Animated timeline dot */}
+                  <div className="timeline-dot" />
 
-                  <div className="card p-6">
+                  <motion.div
+                    whileHover={{ x: 4 }}
+                    className="card p-6 hover:shadow-glow transition-all duration-500"
+                  >
                     <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
                       <div>
                         <h3 className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>{exp.position}</h3>
-                        <p className="font-semibold text-primary-400">{exp.company}</p>
+                        <p className="font-semibold gradient-text">{exp.company}</p>
                       </div>
                       {exp.current && (
-                        <span className="badge bg-accent-500 bg-opacity-20 text-accent-400 border-accent-500">Current</span>
+                        <motion.span
+                          animate={{ boxShadow: ['0 0 0px rgba(16,185,129,0)', '0 0 12px rgba(16,185,129,0.3)', '0 0 0px rgba(16,185,129,0)'] }}
+                          transition={{ duration: 2, repeat: Infinity }}
+                          className="badge"
+                          style={{ background: 'rgba(16,185,129,0.1)', color: '#34d399', borderColor: '#34d399' }}
+                        >
+                          Current
+                        </motion.span>
                       )}
                     </div>
 
                     <div className="flex flex-wrap gap-4 text-sm mb-4" style={{ color: 'var(--text-muted)' }}>
                       <div className="flex items-center gap-1.5">
-                        <Calendar size={14} />
+                        <Calendar size={14} style={{ color: 'var(--accent)' }} />
                         <span>
                           {new Date(exp.startDate).toLocaleDateString('en-US', { year: 'numeric', month: 'short' })}
                           {' — '}
@@ -65,7 +83,7 @@ export function ExperiencePage() {
                       </div>
                       {exp.location && (
                         <div className="flex items-center gap-1.5">
-                          <MapPin size={14} />
+                          <MapPin size={14} style={{ color: 'var(--accent)' }} />
                           <span>{exp.location}</span>
                         </div>
                       )}
@@ -76,13 +94,13 @@ export function ExperiencePage() {
                         {exp.description}
                       </p>
                     )}
-                  </div>
+                  </motion.div>
                 </motion.div>
               ))}
             </div>
           </div>
         )}
-      </motion.div>
-    </div>
+      </div>
+    </PageTransition>
   );
 }
